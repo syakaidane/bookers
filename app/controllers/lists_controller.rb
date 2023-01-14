@@ -1,4 +1,4 @@
-class ListsController < ApplicationController
+class BooksController < ApplicationController
     
   def create
     @list = List.new(list_params)
