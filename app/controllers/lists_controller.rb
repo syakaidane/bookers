@@ -3,6 +3,7 @@ class ListsController < ApplicationController
   def create
     @list = List.new(list_params)
     if @list.save
+      flash[:notice] = "Book was successfully created."
       redirect_to list_path(@list.id)
     else
       @lists = List.all
@@ -24,9 +25,13 @@ class ListsController < ApplicationController
   end
   
   def update
-    list = List.find(params[:id])
-    list.update(list_params)
-    redirect_to list_path(list.id)  
+    @list = List.find(params[:id])
+    if @list.update(list_params)
+      flash[:notice] = "Book was successfully updated."
+      redirect_to list_path(@list.id)
+    else
+      render :edit
+    end
   end
   
   def destroy
